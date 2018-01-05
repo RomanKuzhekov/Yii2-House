@@ -8,7 +8,6 @@
 
 namespace app\models;
 
-
 use yii\db\ActiveRecord;
 
 class Orders extends ActiveRecord
@@ -26,7 +25,7 @@ class Orders extends ActiveRecord
         return [
             [['name', 'phone'], 'required'],
             [['phone'], 'integer'],
-            [['name'], 'string', 'max' => 100]
+            [['name'], 'string', 'max' => 100],
          ];
     }
 

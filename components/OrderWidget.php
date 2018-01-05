@@ -8,7 +8,6 @@
 
 namespace app\components;
 
-
 use app\models\Orders;
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -24,14 +23,15 @@ class OrderWidget extends Widget
     {
         $formOrder = new Orders();
 
-        if($formOrder->load(\Yii::$app->request->post()) && $formOrder->validate()){
-            $formOrder->save();
+        if($formOrder->load(\Yii::$app->request->post()) && $formOrder->validate() && $formOrder->save()){
+            /** Нужно указать Email в Config - params.php и раскоменнтить ниже код */
 //            \Yii::$app->mailer->compose()
 //                ->setFrom(\Yii::$app->params['siteEmail'])
 //                ->setTo(\Yii::$app->params['siteEmail'])
 //                ->setSubject('Новая заявка на сайте - ' . \Yii::$app->params['siteName'])
 //                ->setHtmlBody('Поступила заявка на звонок от:<br>Имя: <b>' . $formOrder->name . '</b><br>Телефон: <b>' . $formOrder->phone . '</b>')
 //                ->send();
+            return true;
         } else {
             $form = \yii\widgets\ActiveForm::begin();
             echo $form->field($formOrder, 'name');

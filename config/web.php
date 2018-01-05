@@ -5,12 +5,14 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'language' => 'ru-RU',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
             'layout' => 'main',
+            'defaultRoute' => 'site/index',
         ],
     ],
     'defaultRoute' => 'site/index',
@@ -40,7 +42,7 @@ $config = [
             'useFileTransport' => false,
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.yandex.ru',   //Настройки для Яндекс
+                'host' => 'smtp.yandex.ru',   //Настройки для Яндекс почты
                 'username' => 'house34@yandex.ru',
                 'password' => '353GF',
                 'port' => '465',
@@ -72,6 +74,25 @@ $config = [
                 '<action>/<id:\d+>' =>'site/<action>',
             ],
         ],
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'defaultTimeZone' => 'Europe/Moscow',
+            'timeZone' => 'GMT+3',
+            'dateFormat' => 'd MMMM yyyy',
+            'datetimeFormat' => 'd-M-Y H:i:s',
+            'timeFormat' => 'H:i:s',
+        ],
+
+    ],
+    'controllerMap' => [
+        'elfinder' => [
+            'class' => 'mihaildev\elfinder\PathController',
+            'access' => ['@'],
+            'root' => [
+                'path' => 'images',
+                'name' => 'images'
+            ],
+        ]
     ],
     'params' => $params,
 ];

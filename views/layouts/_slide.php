@@ -42,6 +42,7 @@
         </div>
     </div>
 </aside>
+
 <div class="slider_lower">
     <h2>ОТ СЛОВ К ДЕЛУ</h2>
     <div id="slider_low">

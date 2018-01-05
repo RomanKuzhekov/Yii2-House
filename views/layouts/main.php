@@ -20,7 +20,7 @@ AppAsset::register($this);
         <meta name="keywords"
               content="Строительная компания «Дома Волгограда» осуществляет строительство домов в Волгограде и Волгоградской области из различных материалов."/>
         <meta name="description" content="Дома Волгограда"/>
-        <meta NAME="Robots" CONTENT="NOINDEX,NOFOLLOW">
+        <meta NAME="Robots" CONTENT="NOINDEX, NOFOLLOW">
     </head>
     <body>
     <?php $this->beginBody() ?>
@@ -28,11 +28,11 @@ AppAsset::register($this);
         <header>
             <div class="header">
                 <div class="logo">
-                    <!--<img src="images/logo.png">-->
                     <a href="<?= \yii\helpers\Url::home() ?>"><h1>Дома Волгограда</h1> <span>Строительство загородных домов</span></a>
                 </div>
                 <div class="address">
-                    <p><i class="glyphicon glyphicon-map-marker"></i> <?= \Yii::$app->params['siteAddress'] ?></p>
+                    <p><i class="glyphicon glyphicon-map-marker"></i> <?= \app\components\SiteAddressWidget::widget() ?>
+                    </p>
                     <? Modal::begin([
                         'header' => '<h2>Расположение на карте:</h2>',
                         'toggleButton' => ['label' => '<p class="main-map">Мы на карте</p>'],
@@ -42,7 +42,7 @@ AppAsset::register($this);
                     <? Modal::end(); ?>
                 </div>
                 <div class="phone">
-                    <p><i class="glyphicon glyphicon-earphone"></i> <?= \Yii::$app->params['sitePhone'] ?></p>
+                    <p><i class="glyphicon glyphicon-earphone"></i> <?= \app\components\SitePhoneWidget::widget() ?></p>
                     <? Modal::begin([
                         'header' => '<h2>Оставьте ваши контакты:</h2>',
                         'toggleButton' => ['label' => '<p class="main-map">Заказать звонок</p>', 'class' => 'order-phone'],
@@ -57,12 +57,13 @@ AppAsset::register($this);
             <div class="menu">
                 <?= $this->render('_menu.php') ?>
             </div>
-            <?php if( Yii::$app->session->hasFlash('success') ): ?>
+            <?php if (Yii::$app->session->hasFlash('success')): ?>
                 <div class="alert alert-success alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
                     <?php echo Yii::$app->session->getFlash('success'); ?>
                 </div>
-            <?php endif;?>
+            <?php endif; ?>
             <?= \yii\widgets\Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>
@@ -73,13 +74,13 @@ AppAsset::register($this);
             <div class="footer_content">
                 <div>
                     <h4>О компании</h4>
-                    <p><?= \Yii::$app->params['siteDescription'] ?> </p>
+                    <p><?= \app\components\SiteDescWidget::widget() ?></p>
                 </div>
                 <div>
                     <h4>Наши контакты</h4>
-                    <p>Адрес: <?= \Yii::$app->params['siteAddress'] ?> </p>
-                    <p>Телефон: <?= \Yii::$app->params['sitePhone'] ?></p>
-                    <p>E-mail: <?= \Yii::$app->params['siteEmail'] ?></p>
+                    <p>Адрес: <?= \app\components\SiteAddressWidget::widget() ?></p>
+                    <p>Телефон: <?= \app\components\SitePhoneWidget::widget() ?></p>
+                    <p>E-mail: <?= \app\components\SiteEmailWidget::widget() ?></p>
                 </div>
             </div>
         </div>

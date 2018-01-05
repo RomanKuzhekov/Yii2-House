@@ -14,7 +14,7 @@ a:hover {text-decoration:none;}
 .header .address .map_link, .header .phone .phone_link{font-size: 16px; display: block; float: right; padding-top: 5px; color: #7BBB33; border-bottom: 1px dotted;}
 .header .phone{display: inline-block; padding-top: 30px; float: right;}
 
-.menu{height: 50px; background-color: #7BBB33; margin-top: 15px; border-radius: 5px;}
+.menu{height: 50px; background-color: #7BBB33; margin-top: 15px; border-radius: 5px; margin-bottom: 20px;}
 .menu ul li{float: left;}
 .menu ul li:first-child{margin-left: 15px;}
 .menu ul li:last-child{margin-right: 15px;}
@@ -98,3 +98,15 @@ button.btn-success{margin-top: 10px;}
 .main-map{font-size: 16px; color: #7BBB33; border-bottom: 1px dotted #7BBB33;}
 .post-detail{padding: 10px; font-style: italic;}
 .breadcrumb{margin-bottom: -5px;}
+
+.site-login{text-align: center;width: 585px; margin: 50px auto;}
+.form-login-site .btn-primary{width: 162px; margin-left: -80px;}
+.general-admin .glyphicon{font-size: 20px; margin: 10px;}
+
+/* Админка */
+.general-admin{width: 1140px; margin: 50px auto 0; padding: 0 20px 0;}
+.general-p{text-align: center; font-size: 30px; margin-bottom: 20px;}
+.general-admin h1{font-size: 20px; color: blue; padding: 10px 0;}
+
+
+

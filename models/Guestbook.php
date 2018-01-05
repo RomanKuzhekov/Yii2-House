@@ -8,7 +8,6 @@
 
 namespace app\models;
 
-
 use himiklab\yii2\recaptcha\ReCaptchaValidator;
 use Yii;
 use yii\db\ActiveRecord;
@@ -54,7 +53,5 @@ class Guestbook extends ActiveRecord
         if($insert){
             Yii::$app->session->setFlash('success','Комментарий добавлен!');
         }
-       // parent::afterSave($insert,$changedAttributes);
     }
-
 }

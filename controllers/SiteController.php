@@ -5,140 +5,86 @@ namespace app\controllers;
 use app\models\Articles;
 use app\models\Gallery;
 use app\models\Guestbook;
+use app\models\LoginForm;
 use app\models\Pages;
+use app\models\Site;
 use Yii;
-use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
 
 
 class SiteController extends Controller
 {
-    const PAGINATION = 5;
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
-                'rules' => [
-                    [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
+    const PAGINATION = 4;
 
-    /**
-     * @inheritdoc
-     */
     public function actions()
     {
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
         ];
     }
 
     public function actionIndex()
     {
-        $data = Pages::find()->where(['name' => 'index'])->one();
+        $data = $this->preparePage('index');
 
         return $this->render('index', compact('data'));
-
     }
 
     public function actionCompany()
     {
-        $data = Pages::find()->where(['name' => 'company'])->one();
+        $data = $this->preparePage('company');
 
         return $this->render('company', compact('data'));
-    }
-
-    public function actionGuestbook()
-    {
-        $data = Pages::find()->where(['name' => 'guestbook'])->one();
-        $model = new Guestbook();
-        $query = Guestbook::find()->orderBy('id DESC');
-        $pages = new \yii\data\Pagination(['totalCount'=>$query->count(), 'pageSize' => self::PAGINATION, 'pageSizeParam'=>false, 'forcePageParam'=>false]);
-        $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
-
-        if($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()){
-            return $this->refresh();
-        } else {
-            return $this->render('guestbook', compact('data','model','pages','posts'));
-        }
     }
 
     public function actionArticles()
     {
         if ($id = \Yii::$app->request->get('id')) {
             $post = Articles::findOne($id);
+            $data = $this->preparePost($post);
+            $lastArticles = $this->lastArticles($data->id);
 
-            if(empty($post)) throw new \yii\web\HttpException(404, 'Такой страницы нет...');
-
-            $data = Pages::find()->where(['id' => $post->page])->one();
-            $lastArticles = Articles::find()->where(['page' => $data->id])->Limit(5)->orderBy('id DESC')->all();
-            $post->updateCounters(['count' => 1]);
             return $this->render('post', compact('post', 'lastArticles', 'data'));
         } else {
-            $data = Pages::find()->where(['name' => 'articles'])->one();
+            $data = $this->preparePage('articles');
+
             $query = Articles::find()->where(['page' => $data->id])->orderBy('id DESC');
-            $pages = new \yii\data\Pagination(['totalCount'=>$query->count(), 'pageSize' => self::PAGINATION, 'pageSizeParam'=>false, 'forcePageParam'=>false]);
-            $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
+            $res = $this->preparePosts($query);
 
-            return $this->render('articles', compact('data', 'pages','posts'));
+            return $this->render('articles', [
+                'data' => $data,
+                'pages' => $res['pages'],
+                'posts' => $res['posts'],
+            ]);
         }
-
     }
 
     public function actionSale()
     {
         if ($id = \Yii::$app->request->get('id')) {
             $post = Articles::findOne($id);
+            $data = $this->preparePost($post);
+            $lastArticles = $this->lastArticles($data->id);
 
-            if(empty($post)) throw new \yii\web\HttpException(404, 'Такой страницы нет...');
-
-            $data = Pages::find()->where(['id' => $post->page])->one();
-            $lastArticles = Articles::find()->where(['page' => $data->id])->Limit(5)->orderBy('id DESC')->all();
-            $post->updateCounters(['count' => 1]);
             return $this->render('post', compact('post', 'lastArticles', 'data'));
         } else {
-            $data = Pages::find()->where(['name' => 'sale'])->one();
+            $data = $this->preparePage('sale');
             $query = Articles::find()->where(['page' => $data->id])->orderBy('id DESC');
-            $pages = new \yii\data\Pagination(['totalCount'=>$query->count(), 'pageSize' => self::PAGINATION, 'pageSizeParam'=>false, 'forcePageParam'=>false]);
-            $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
+            $res = $this->preparePosts($query);
 
-            return $this->render('articles', compact('data', 'pages','posts'));
+            return $this->render('articles', [
+                'data' => $data,
+                'pages' => $res['pages'],
+                'posts' => $res['posts'],
+            ]);
         }
-
     }
 
     public function actionGallery()
     {
-        $data = Pages::find()->where(['name' => 'gallery'])->one();
+        $data = $this->preparePage('gallery');
         $query = Gallery::find()->orderBy('id DESC');
         $pages = new \yii\data\Pagination(['totalCount'=>$query->count(), 'pageSize' => 8, 'pageSizeParam'=>false, 'forcePageParam'=>false]);
         $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
@@ -146,19 +92,84 @@ class SiteController extends Controller
         return $this->render('gallery', compact('data', 'pages','posts'));
     }
 
+    public function actionGuestbook()
+    {
+        $data = $this->preparePage('guestbook');
+        $model = new Guestbook();
+        $query = Guestbook::find()->orderBy('id DESC');
+        $res = $this->preparePosts($query);
 
+        if($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()){
+            return $this->refresh();
+        } else {
+            return $this->render('guestbook', [
+                'data' => $data,
+                'model' => $model,
+                'pages' => $res['pages'],
+                'posts' => $res['posts'],
+            ]);
+        }
+    }
 
     public function actionContacts()
     {
-        $data = Pages::find()->where(['name' => 'contacts'])->one();
-
-
-        return $this->render('contacts', compact('data'));
+        $data = $this->preparePage('contacts');
+        $site = Site::find()->where(['id' => 1])->one();
+        return $this->render('contacts', compact('data', 'site'));
     }
 
+    private function preparePage($page)
+    {
+        $data = Pages::find()->where(['name' => $page])->one();
+        return $data;
+    }
 
+    private function preparePosts($query)
+    {
+        $pages = new \yii\data\Pagination(['totalCount'=>$query->count(), 'pageSize' => self::PAGINATION, 'pageSizeParam'=>false, 'forcePageParam'=>false]);
+        $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
+        $res = [
+            'pages' => $pages,
+            'posts' => $posts,
+        ];
+        return $res;
+    }
 
+    private function preparePost($post)
+    {
+        /** @var Articles $post */
+        if(empty($post)) throw new \yii\web\HttpException(404, 'Такой страницы нет!');
 
+        $data = Pages::find()->where(['id' => $post->page])->one();
+        $post->updateCounters(['count' => 1]);
+        return $data;
+    }
 
+    private function lastArticles($id)
+    {
+        $data = Articles::find()->where(['page' => $id])->Limit(5)->orderBy('id DESC')->all();
+        return $data;
+    }
+
+    /**
+     * Login action.
+     *
+     * @return Response|string
+     */
+    public function actionLogin()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return Yii::$app->response->redirect(['admin/site/']);
+        }
+
+        Yii::$app->layout = false;
+        return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
 }
-

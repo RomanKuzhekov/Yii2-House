@@ -1,6 +1,5 @@
 <?
 /* @var $data \app\models\Pages */
-
 $this->title = $data->title;
 ?>
 <?= $this->render('../layouts/_slide.php') ?>
@@ -10,6 +9,4 @@ $this->title = $data->title;
         <?= $data->description ?>
     </arcticle>
 </div>
-<?php
 
-?>
