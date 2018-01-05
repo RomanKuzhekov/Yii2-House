@@ -2,8 +2,6 @@
 
 namespace app\modules\admin\models;
 
-use Yii;
-
 /**
  * This is the model class for table "Guestbook".
  *
@@ -20,7 +18,7 @@ class Guestbook extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Guestbook';
+        return 'guestbook';
     }
 
     /**
@@ -42,11 +40,10 @@ class Guestbook extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Имя',
             'email' => 'Email',
-            'text' => 'Text',
-            'date' => 'Date',
+            'text' => 'Текст',
+            'date' => 'Дата',
         ];
     }
 }

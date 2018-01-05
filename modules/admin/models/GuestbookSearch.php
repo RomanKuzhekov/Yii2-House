@@ -19,7 +19,7 @@ class GuestbookSearch extends Guestbook
     {
         return [
             [['id'], 'integer'],
-            [['name', 'email', 'text', 'date'], 'safe'],
+            [['name', 'email', 'text'], 'safe'],
         ];
     }
 
