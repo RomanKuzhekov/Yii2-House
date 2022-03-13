@@ -1,81 +1,92 @@
 <?php
+/* @var $this \yii\web\View */
+/* @var $content string */
 
-/** @var yii\web\View $this */
-/** @var string $content */
-
-use app\assets\AppAsset;
-use app\widgets\Alert;
-use yii\bootstrap4\Breadcrumbs;
-use yii\bootstrap4\Html;
-use yii\bootstrap4\Nav;
-use yii\bootstrap4\NavBar;
+use yii\helpers\Html;
+use yii\bootstrap4\Modal;
+use \app\assets\AppAsset;
 
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
-<!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>" class="h-100">
-<head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
-</head>
-<body class="d-flex flex-column h-100">
-<?php $this->beginBody() ?>
-
-<header>
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
-    ?>
-</header>
-
-<main role="main" class="flex-shrink-0">
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="<?= Yii::$app->charset ?>">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?= Html::csrfMetaTags() ?>
+        <title><?= Html::encode($this->title) ?></title>
+        <?php $this->head() ?>
+        <meta name="keywords"
+              content="Строительная компания «Дома Волгограда» осуществляет строительство домов в Волгограде и Волгоградской области из различных материалов."/>
+        <meta name="description" content="Дома Волгограда"/>
+        <meta NAME="Robots" CONTENT="NOINDEX, NOFOLLOW">
+    </head>
+    <body>
+    <?php $this->beginBody() ?>
+    <div id="general">
+        <header>
+            <div class="header">
+                <div class="logo">
+                    <a href="<?= \yii\helpers\Url::home() ?>"><h1>Дома Волгограда</h1> <span>Строительство загородных домов</span></a>
+                </div>
+                <div class="address">
+                    <p><i class="glyphicon glyphicon-map-marker"></i> <?= \app\components\SiteAddressWidget::widget() ?>
+                    </p>
+<!--                    --><?// Modal::begin([
+//                        'header' => '<h2>Расположение на карте:</h2>',
+//                        'toggleButton' => ['label' => '<p class="main-map">Мы на карте</p>'],
+//                        'footer' => 'Дома Волгограда',
+//                    ]); ?>
+<!--                    --><?//= $this->render('_map.php') ?>
+<!--                    --><?// Modal::end(); ?>
+                </div>
+                <div class="phone">
+                    <p><i class="glyphicon glyphicon-earphone"></i> <?= \app\components\SitePhoneWidget::widget() ?></p>
+<!--                    --><?// Modal::begin([
+//                        'header' => '<h2>Оставьте ваши контакты:</h2>',
+//                        'toggleButton' => ['label' => '<p class="main-map">Заказать звонок</p>', 'class' => 'order-phone'],
+//                        'footer' => 'Дома Волгограда',
+//                    ]); ?>
+<!--                    --><?//= \app\components\OrderWidget::widget() ?>
+<!--                    --><?// Modal::end(); ?>
+                </div>
+            </div>
+        </header>
+        <nav>
+            <div class="menu">
+                <?= $this->render('_menu.php') ?>
+            </div>
+            <?php if (Yii::$app->session->hasFlash('success')): ?>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <?php echo Yii::$app->session->getFlash('success'); ?>
+                </div>
+            <?php endif; ?>
+            <?= \yii\widgets\Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?= $content ?>
     </div>
-</main>
-
-<footer class="footer mt-auto py-3 text-muted">
-    <div class="container">
-        <p class="float-left">&copy; My Company <?= date('Y') ?></p>
-        <p class="float-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
-
-<?php $this->endBody() ?>
-</body>
-</html>
+    <footer>
+        <div class="footer">
+            <div class="footer_content">
+                <div>
+                    <h4>О компании</h4>
+                    <p><?= \app\components\SiteDescWidget::widget() ?></p>
+                </div>
+                <div>
+                    <h4>Наши контакты</h4>
+                    <p>Адрес: <?= \app\components\SiteAddressWidget::widget() ?></p>
+                    <p>Телефон: <?= \app\components\SitePhoneWidget::widget() ?></p>
+                    <p>E-mail: <?= \app\components\SiteEmailWidget::widget() ?></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="overlay"></div>
+    <?php $this->endBody() ?>
+    </body>
+    </html>
 <?php $this->endPage() ?>
