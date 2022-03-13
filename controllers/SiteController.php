@@ -89,4 +89,26 @@ class SiteController extends Controller
             ]);
         }
     }
+
+    /**
+     * Login action.
+     *
+     * @return Response|string
+     */
+    public function actionLogin()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return Yii::$app->response->redirect(['admin/site/']);
+        }
+
+        Yii::$app->layout = false;
+        return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
 }
