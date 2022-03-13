@@ -1,7 +1,9 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@example.com',
-    'senderEmail' => 'noreply@example.com',
-    'senderName' => 'Example.com mailer',
+    'siteEmail' => 'house34@yandex.ru',  //почта которая будет отправлять и получать письма
+    'siteName' => 'Строительство загородных домов Волгограда.', //для почты
+    'sliderPath' => 'images/slider/',
+    'articlesPath' => 'images/',
+    'adminUrl' => '/admin/',
 ];
