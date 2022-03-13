@@ -70,4 +70,23 @@ class SiteController extends Controller
 
         return $this->render('gallery', compact('data', 'pages','posts'));
     }
+
+    public function actionGuestbook()
+    {
+        $data = $this->preparePage('guestbook');
+        $model = new Guestbook();
+        $query = Guestbook::find()->orderBy('id DESC');
+        $res = $this->preparePosts($query);
+
+        if($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()){
+            return $this->refresh();
+        } else {
+            return $this->render('guestbook', [
+                'data' => $data,
+                'model' => $model,
+                'pages' => $res['pages'],
+                'posts' => $res['posts'],
+            ]);
+        }
+    }
 }
