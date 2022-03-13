@@ -1,0 +1,7 @@
+@media (max-width: 1140px) {
+    #general{width: 990px; padding: 0 10px;}
+    .header .address{padding-left: 70px;}
+    .menu ul li a{padding: 15px 15px; }
+    .footer_content{width: 990px; padding: 0 10px;}
+    .footer_content div:last-child{ width: 32%;}
+}

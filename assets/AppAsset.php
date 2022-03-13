@@ -20,12 +20,18 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
+        'css/reset.css',
+        'css/style.css',
+        'css/adaptive.css',
+        'scripts/fancybox/jquery.fancybox.css',
     ];
     public $js = [
+        'scripts/main.js',
+        'scripts/slider.js',
+        'scripts/fancybox/jquery.fancybox.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap4\BootstrapAsset',
+        'yii\bootstrap\BootstrapAsset',
     ];
 }

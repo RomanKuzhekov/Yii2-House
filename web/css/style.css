@@ -1,0 +1,109 @@
+body {background-color: #fff;  color: #333; font: 14px Arial,Helvetica,sans-serif; line-height: 20px; margin: 0; padding: 0; border-top: 5px solid #7BBB33; min-width: 990px;}
+body, html {height:100%;}
+a{color:#000; text-decoration:none; outline:none; position:relative;}
+a:hover {text-decoration:none;}
+#clear{clear: both;}
+#general{width: 1140px; margin: 20px auto 0; padding: 0 20px 0;}
+
+.header{height: 95px;}
+.header .logo{background: url("../images/logo.png") no-repeat 0 0; padding-left: 120px; display: inline-block; height: 95px;}
+.header .logo a{display: inline-block;}
+.header .logo h1{font-family: Verdana; font-size: 36px; font-weight: bold;}
+.header .address{padding-left: 100px; display: inline-block; padding-top: 30px;}
+.header .glyphicon{color: #7BBB33;}
+.header .address .map_link, .header .phone .phone_link{font-size: 16px; display: block; float: right; padding-top: 5px; color: #7BBB33; border-bottom: 1px dotted;}
+.header .phone{display: inline-block; padding-top: 30px; float: right;}
+
+.menu{height: 50px; background-color: #7BBB33; margin-top: 15px; border-radius: 5px; margin-bottom: 20px;}
+.menu ul li{float: left;}
+.menu ul li:first-child{margin-left: 15px;}
+.menu ul li:last-child{margin-right: 15px;}
+.menu ul li a{text-transform: uppercase; color: #fff; padding: 14px 20px; display: inline-block;}
+.menu ul li.active, .menu ul li a:hover{background-color: #24272C;}
+.menu .glyphicon{font-size: 10px; vertical-align: middle;}
+.menu .menu_lower ul{background-color: #24272C; display: none;  position: absolute; z-index: 999; }
+.menu .menu_lower ul li{ float: none;}
+.menu .menu_lower ul li:first-child, .menu .menu_lower ul li:last-child{margin-left: 0;}
+.menu .menu_lower ul li a{padding-bottom: 5px;}
+.menu .menu_lower ul li:last-child{padding-bottom: 10px;}
+.menu .menu_lower ul li a:hover{text-decoration: underline;}
+
+#slider{height: 450px; margin-top: 10px; border-radius: 5px; position:relative; overflow:hidden;}
+#slider img {width: auto; height:auto; display:none; position:absolute; top:0; }
+#slider img:first-child {display:block;}
+#slider span{display:block;position:absolute;top:50%;cursor:pointer;}
+#slider .glyphicon{font-size: 30px;}
+#slider span.glyphicon-circle-arrow-left {display: none; left:15px;}
+#slider span.glyphicon-circle-arrow-right {right:15px; display: none;}
+#slider span.glyphicon-circle-arrow-left:hover,#slider span.glyphicon-circle-arrow-right:hover{color: #fff}
+.slider_lower{margin-top: 40px; padding: 10px 0 50px;}
+
+.privilege{background-color: #F3F3F3; margin-top: 40px; padding: 10px;}
+.privilege h2, .row_order h2, .slider_lower h2{text-align: center; font-size: 24px;margin: 0 0 30px; font-weight: bold;}
+.privilege div{display: inline-block; width: 33%; text-align: center; }
+.privilege div:last-child, .row_order div:last-child{float: right; width: 24%;}
+.privilege .glyphicon, .row_order .glyphicon{display: block; text-align: center; font-size: 50px; margin-bottom: 20px;}
+
+.row_order{margin-top: 40px; padding: 10px;}
+.row_order div{display: inline-block; width: 25%; text-align: center; }
+
+
+
+.content{padding: 0 0 20px; }
+.content h1{font-weight: bold; font-size: 34px; padding-bottom: 10px; margin-top: 0;}
+.content img{float: right; padding: 0 0 5px 5px; width: 230px; height: 180px;}
+.content ul{list-style-type: disc; margin-left: 40px;}
+
+.photos{text-align: center; margin-bottom: 15px;}
+#photo{float: none; width: 230px; margin: 5px 2px;  height: 180px;}
+
+.footer{background-color: #F3F3F3; border-top: 1px solid #ccc; padding-bottom: 10px;}
+.footer_content{width: 1140px; margin: 20px auto 0; padding: 0 20px 0;}
+.footer_content div{display: inline-block; width: 40%;}
+.footer_content div:last-child{float: right; width: 30%;}
+.footer_content h4{font-weight: bold;}
+
+.phone .order-phone{background-color: #fff; outline: none;}
+.alert-success{font-size: 24px;}
+
+.posts{padding: 20px 0 10px;}
+.map{margin-bottom: 10px;}
+.posts h1{font-weight: bold; font-size: 30px;}
+
+.guest_comment{border-bottom: 1px dashed #ccc; padding: 10px;}
+.guest_comment_post{text-decoration: underline;}
+.guest_comment h4{margin-bottom: 0; color: green;}
+.guest_comment .date{display: block; padding-left: 5px; margin-bottom: 5px; font-size: 12px;}
+#guest_post{border: 1px solid #ccc; border-radius: 5px; width: 830px; margin: 20px auto; background-color: #F4F4F4;}
+#guest_post form{margin: 20px;}
+#guest_post form input, #guest_post form textarea{display: block; border: 1px solid #ccc; border-radius: 5px; width: 100%; padding: 5px;}
+#guest_post form textarea{height: 150px; margin-bottom: 10px;}
+#guest_post form label{font-weight: normal;}
+#guest_post form input[type=submit]{width: 200px; background-color: #7BBB33; color: #fff; font-weight: bold; margin-top: 10px; float: right;}
+#guestbookform-verifycode-image{    width: 150px; height: auto;}
+div.required label.control-label:after, .field-guestbookform-verifycode .control-label:after {content: "*"; color: red;}
+button.btn-success{margin-top: 10px;}
+
+.article{border-bottom: 1px dashed #ccc; min-height:150px; margin-top: 10px;}
+.article img{float: left; width: 150px; height: 100px; padding:0 5px 5px 0;  }
+.article h3 a{color: green;font-size: 20px; margin-bottom: 10px; display: inline-block;}
+.article .more-link{margin: 15px 0 0;}
+.article .view{float: right; text-decoration: underline; font-size: 16px; margin-top: -20px;}
+
+.last_articles{border-top: 1px solid #ccc; margin-top: 20px;}
+.last_articles a{text-decoration: underline; margin-bottom: 5px; display: inline-block;}
+.last_articles h4{font-size: 20px; padding: 10px;}
+
+.address button{background-color: #fff; outline: none; margin-left: 80px; margin-top: 3px;}
+.main-map{font-size: 16px; color: #7BBB33; border-bottom: 1px dotted #7BBB33;}
+.post-detail{padding: 10px; font-style: italic;}
+.breadcrumb{margin-bottom: -5px;}
+
+.site-login{text-align: center;width: 585px; margin: 50px auto;}
+.form-login-site .btn-primary{width: 162px; margin-left: -80px;}
+.general-admin .glyphicon{font-size: 20px; margin: 10px;}
+
+/* Админка */
+.general-admin{width: 1140px; margin: 50px auto 0; padding: 0 20px 0;}
+.general-p{text-align: center; font-size: 30px; margin-bottom: 20px;}
+.general-admin h1{font-size: 20px; color: blue; padding: 10px 0;}
