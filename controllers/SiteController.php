@@ -60,4 +60,14 @@ class SiteController extends Controller
             ]);
         }
     }
+
+    public function actionGallery()
+    {
+        $data = $this->preparePage('gallery');
+        $query = Gallery::find()->orderBy('id DESC');
+        $pages = new \yii\data\Pagination(['totalCount'=>$query->count(), 'pageSize' => 8, 'pageSizeParam'=>false, 'forcePageParam'=>false]);
+        $posts = $query->offset($pages->offset)->limit($pages->limit)->all();
+
+        return $this->render('gallery', compact('data', 'pages','posts'));
+    }
 }
