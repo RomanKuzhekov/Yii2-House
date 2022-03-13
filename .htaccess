@@ -1,4 +1,2 @@
 RewriteEngine on
-
-RewriteCond %{REQUEST_URI} ^/
-RewriteRule ^(.*)$ /web/$1 [qsa,l]
+RewriteRule ^(.+)?$ /web/$1
