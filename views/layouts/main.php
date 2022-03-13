@@ -3,7 +3,7 @@
 /* @var $content string */
 
 use yii\helpers\Html;
-use yii\bootstrap4\Modal;
+use yii\bootstrap\Modal;
 use \app\assets\AppAsset;
 
 AppAsset::register($this);
@@ -33,23 +33,23 @@ AppAsset::register($this);
                 <div class="address">
                     <p><i class="glyphicon glyphicon-map-marker"></i> <?= \app\components\SiteAddressWidget::widget() ?>
                     </p>
-<!--                    --><?// Modal::begin([
-//                        'header' => '<h2>Расположение на карте:</h2>',
-//                        'toggleButton' => ['label' => '<p class="main-map">Мы на карте</p>'],
-//                        'footer' => 'Дома Волгограда',
-//                    ]); ?>
-<!--                    --><?//= $this->render('_map.php') ?>
-<!--                    --><?// Modal::end(); ?>
+                    <? Modal::begin([
+                        'header' => '<h2>Расположение на карте:</h2>',
+                        'toggleButton' => ['label' => '<p class="main-map">Мы на карте</p>'],
+                        'footer' => 'Дома Волгограда',
+                    ]); ?>
+                    <?= $this->render('_map.php') ?>
+                    <? Modal::end(); ?>
                 </div>
                 <div class="phone">
                     <p><i class="glyphicon glyphicon-earphone"></i> <?= \app\components\SitePhoneWidget::widget() ?></p>
-<!--                    --><?// Modal::begin([
-//                        'header' => '<h2>Оставьте ваши контакты:</h2>',
-//                        'toggleButton' => ['label' => '<p class="main-map">Заказать звонок</p>', 'class' => 'order-phone'],
-//                        'footer' => 'Дома Волгограда',
-//                    ]); ?>
-<!--                    --><?//= \app\components\OrderWidget::widget() ?>
-<!--                    --><?// Modal::end(); ?>
+                    <? Modal::begin([
+                        'header' => '<h2>Оставьте ваши контакты:</h2>',
+                        'toggleButton' => ['label' => '<p class="main-map">Заказать звонок</p>', 'class' => 'order-phone'],
+                        'footer' => 'Дома Волгограда',
+                    ]); ?>
+                    <?= \app\components\OrderWidget::widget() ?>
+                    <? Modal::end(); ?>
                 </div>
             </div>
         </header>
